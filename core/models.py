@@ -41,11 +41,12 @@ class MessageManager(models.Manager):
         
 
 class Message(models.Model):
-    followers = models.ManyToManyField(Account, related_name='followers')
-    reply_to = models.ManyToManyField(Account, related_name='reply_to')
+    followers = models.ManyToManyField(Account, related_name='followers', blank=True)
+    reply_to = models.ManyToManyField(Account, related_name='reply_to', blank=True)
     message_id = models.CharField(max_length=20, unique=True, db_index=True)
     username = models.CharField(max_length=128, db_index=True)
     is_direct = models.BooleanField(default=False)
+    is_protected = models.BooleanField(default=False)
     content = models.CharField(max_length=200)
     ctime = models.DateTimeField(default=datetime.now)
 
