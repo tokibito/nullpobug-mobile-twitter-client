@@ -4,7 +4,7 @@
 
 {% block header %}
 <div>
-この発言をReTweet
+この発言に返信
 </div>
 {% endblock %}
 
@@ -14,8 +14,8 @@
 </div>
 <form action="{% mobileurl core_post_message %}" method="post">
 <div style="font-size:small">
-<input type="submit" value="送信" /><br />
 {{ form.message }}
+<input type="submit" value="送信" /><br />
 {{ form.reply_id }}
 </div>
 </form>

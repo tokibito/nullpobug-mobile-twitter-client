@@ -14,6 +14,7 @@
 <div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %};font-size:small">
 {{ message.username }}:{{ message.content }} <!--
 --><span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span><!--
+--> <a href="{% mobileurl core_reply_message message.message_id %}">@</a><!--
 --> {% if message.is_protected %}{% emoji "LOCK" %}{% else %}<a href="{% mobileurl core_retweet_message message.message_id %}">RT</a>{% endif %}
 </div>
 {% endfor %}

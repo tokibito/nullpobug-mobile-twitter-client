@@ -7,5 +7,5 @@ def remove_from_list(target, item):
 
 MIDDLEWARE_CLASSES = remove_from_list(list(MIDDLEWARE_CLASSES), 'bpmobile.middleware.BPMobileDenyBogusIP')
 
-#INSTALLED_APPS = list(INSTALLED_APPS)
-#INSTALLED_APPS.append('django_extensions')
+INSTALLED_APPS = list(INSTALLED_APPS)
+INSTALLED_APPS.append('django_extensions')

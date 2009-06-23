@@ -1,7 +1,7 @@
 # vim:fileencoding=utf8
 from datetime import datetime
 
-from django.db import models
+from django.db import models, IntegrityError
 from django.contrib.auth.models import User
 
 import twitter
@@ -22,22 +22,25 @@ class Account(models.Model):
         ordering = ('-post_default', '-ctime')
 
 class MessageManager(models.Manager):
-    def post_message(self, account, content):
+    def post_message(self, account, content, reply_id=None):
         api = twitter.Api(
             username=account.username,
             password=account.password
         )
-        timeline = api.PostUpdate(content)
-        message = Message.objects.create(
-            message_id=str(timeline.id),
-            username=timeline.user.screen_name,
-            content=timeline.text,
-            is_protected=timeline.user.protected,
-            ctime = utils.offset_timezone(datetime.strptime(
-                timeline.created_at,
-                '%a %b %d %H:%M:%S +0000 %Y'
-            ))
-        )
+        timeline = api.PostUpdate(content, reply_id)
+        try:
+            message = Message.objects.create(
+                message_id=str(timeline.id),
+                username=timeline.user.screen_name,
+                content=timeline.text,
+                is_protected=timeline.user.protected,
+                ctime = utils.offset_timezone(datetime.strptime(
+                    timeline.created_at,
+                    '%a %b %d %H:%M:%S +0000 %Y'
+                ))
+            )
+        except IntegrityError:
+            message = Message.objects.get(message_id=str(timeline.id))
         message.followers.add(account)
         
 

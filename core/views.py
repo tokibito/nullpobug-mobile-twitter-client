@@ -39,8 +39,22 @@ def post_message(request):
     if form.is_valid():
         accounts = Account.objects.filter(user=request.user)[:1]
         if accounts:
-            Message.objects.post_message(accounts[0], form.cleaned_data['message'])
+            reply_id = form.cleaned_data.get('reply_id', None) or None
+            Message.objects.post_message(accounts[0], form.cleaned_data['message'], reply_id)
     return HttpResponseRedirect(reverse('site_index'))
+
+@login_required
+def reply_message(request, message_id):
+    """
+    show retweet form.
+    """
+    message = get_object_or_404(Message, message_id=message_id)
+    re_content = '@%s ' %  message.username
+    form = PostMessageForm(initial={'message': re_content, 'reply_id': message.message_id})
+    return direct_to_template(request, 'core/reply.html', extra_context={
+        'message': message,
+        'form': form,
+    })
 
 @login_required
 def retweet_message(request, message_id):
@@ -49,7 +63,7 @@ def retweet_message(request, message_id):
     """
     message = get_object_or_404(Message, message_id=message_id)
     rt_content = 'RT @%s: %s' %  (message.username, message.content)
-    form = PostMessageForm(initial={'message': rt_content})
+    form = PostMessageForm(initial={'message': rt_content, 'reply_id': message.message_id})
     return direct_to_template(request, 'core/retweet.html', extra_context={
         'message': message,
         'form': form,
