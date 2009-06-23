@@ -2,8 +2,6 @@
 
 {% load mobile %}
 
-{% block title %}ぬるぽTW{% endblock %}
-
 {% block main %}
 <form action="{% mobileurl core_post_message %}" method="post">
 {{ form.message }}
@@ -12,7 +10,7 @@
 <div>
 {% for message in message_list %}
 <div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %}">
-{{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span>
+{{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span> <a href="{% mobileurl core_retweet_message message.message_id %}">RT</a>
 </div>
 {% endfor %}
 </div>

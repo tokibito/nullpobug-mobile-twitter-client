@@ -2,25 +2,25 @@ import socket
 socket.setdefaulttimeout(30)
 from datetime import datetime
 
-from pytz import timezone
-
-import twitter
-
 from django.http import HttpResponseRedirect
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import IntegrityError
+from django.shortcuts import get_object_or_404
+
+import twitter
+from pytz import timezone
 
 from authmobile.models import MobileUser
 
 from core.models import Account, Message
 from core.forms import PostMessageForm
 
-TZ = timezone(settings.TIME_ZONE)
-
 NUM_OF_MESSAGES_BY_PAGE = 30
+
+TZ = timezone(settings.TIME_ZONE)
 
 @login_required
 def index(request):
@@ -39,22 +39,21 @@ def post_message(request):
     if form.is_valid():
         accounts = Account.objects.filter(user=request.user)[:1]
         if accounts:
-            api = twitter.Api(
-                username=accounts[0].username,
-                password=accounts[0].password
-            )
-            timeline = api.PostUpdate(form.cleaned_data['message'])
-            message = Message.objects.create(
-                message_id=str(timeline.id),
-                username=timeline.user.screen_name,
-                content=timeline.text,
-                ctime = datetime.strptime(
-                    timeline.created_at,
-                    '%a %b %d %H:%M:%S +0000 %Y'
-                ) + TZ.utcoffset('')
-            )
-            message.followers.add(accounts[0])
+            Message.objects.post_message(accounts[0], form.cleaned_data['message'])
     return HttpResponseRedirect(reverse('site_index'))
+
+@login_required
+def retweet_message(request, message_id):
+    """
+    show retweet form.
+    """
+    message = get_object_or_404(Message, message_id=message_id)
+    rt_content = 'RT @%s: %s' %  (message.username, message.content)
+    form = PostMessageForm(initial={'message': rt_content})
+    return direct_to_template(request, 'core/retweet.html', extra_context={
+        'message': message,
+        'form': form,
+    })
 
 @login_required
 def fetch_friends_timeline(request):

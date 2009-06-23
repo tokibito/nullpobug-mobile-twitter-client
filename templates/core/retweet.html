@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+
+{% load mobile %}
+
+{% block header %}
+<div>
+この発言をReTweet
+</div>
+{% endblock %}
+
+{% block main %}
+<div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %}">
+{{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span>
+</div>
+<form action="{% mobileurl core_post_message %}" method="post">
+<input type="submit" value="送信" /><br />
+{{ form.message }}
+</form>
+{% endblock %}
