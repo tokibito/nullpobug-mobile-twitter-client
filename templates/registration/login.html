@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load mobile %}
+
+{% block main %}
+<form action="{% mobileurl auth_login %}" method="post">
+<div>
+ユーザ名:<br />
+{{ form.username }}<br />
+パスワード:<br />
+{{ form.password }}<br />
+<input type="submit" value="ログイン" />
+</div>
+</form>
+<form action="{% mobileurl authmobile_login_easy %}">
+<input type="submit" value="かんたんログイン" />
+</form>
+{% endblock %}

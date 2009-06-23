@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+
+{% load mobile %}
+
+{% block title %}ぬるぽTW{% endblock %}
+
+{% block main %}
+<form action="{% mobileurl core_post_message %}" method="post">
+{{ form.message }}
+<input type="submit" value="送信" />
+</form>
+<div>
+{% for message in message_list %}
+<div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %}">
+{{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

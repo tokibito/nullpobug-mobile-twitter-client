@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% load mobile %}
+
+{% block main %}
+<p>
+ログアウトしました。<br />
+<a href="{% mobileurl auth_login %}">ログイン画面へ</a>
+</p>
+{% endblock %}

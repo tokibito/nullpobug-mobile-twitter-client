@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% load mobile %}
+
+{% block main %}
+<div style="background-color:#FFDDFF">
+設定
+</div>
+<div>
+かんたんログイン:{% if mobileuser %}設定済{% else %}なし{% endif %}
+</div>
+<form action="{% mobileurl core_config_login_easy %}">
+<input type="submit" value="かんたんログインを設定" />
+</form>
+{% endblock %}

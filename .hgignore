@@ -1,0 +1,9 @@
+syntax: glob
+*.pyc
+*.swp
+*.orig
+*.db
+
+syntax: regexp
+^bpmobile$
+^django_extensions
