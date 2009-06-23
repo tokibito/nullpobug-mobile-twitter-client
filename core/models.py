@@ -32,6 +32,7 @@ class MessageManager(models.Manager):
             message_id=str(timeline.id),
             username=timeline.user.screen_name,
             content=timeline.text,
+            is_protected=timeline.user.protected,
             ctime = utils.offset_timezone(datetime.strptime(
                 timeline.created_at,
                 '%a %b %d %H:%M:%S +0000 %Y'
