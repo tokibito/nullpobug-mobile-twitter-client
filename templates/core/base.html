@@ -13,8 +13,10 @@
 {% endblock %}
 
 {% block footer %}
+<div style="background-color:#CCCCFF">
 <a href="{% mobileurl site_index %}" accesskey="0">{% emoji "KEYPAD 0" %}ホーム</a>
 <a href="{% mobileurl core_fetch_friends_timeline %}" accesskey="1">{% emoji "KEYPAD 1" %}更新</a>
 <a href="{% mobileurl core_config %}">{% emoji "WRENCH" %}</a>
 <a href="{% mobileurl auth_logout %}">{% emoji "DASH SYMBOL" %}</a>
+</div>
 {% endblock %}
