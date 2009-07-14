@@ -7,3 +7,4 @@ syntax: glob
 syntax: regexp
 ^bpmobile$
 ^django_extensions
+^secret_key$
