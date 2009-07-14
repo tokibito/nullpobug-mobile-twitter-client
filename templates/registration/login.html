@@ -12,7 +12,9 @@
 <input type="submit" value="ログイン" />
 </div>
 </form>
+{% if not agent.is_nonmobile %}
 <form action="{% mobileurl authmobile_login_easy %}">
 <input type="submit" value="かんたんログイン" />
 </form>
+{% endif %}
 {% endblock %}

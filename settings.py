@@ -65,13 +65,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'bpmobile.context_processors.agent',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'bpmobile.middleware.BPMobileMiddleware',
     'bpmobile.middleware.BPMobileConvertResponseMiddleware',
-    'bpmobile.middleware.BPMobileDenyBogusIP',
+#    'bpmobile.middleware.BPMobileDenyBogusIP',
 )
 
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + (
