@@ -14,7 +14,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join('nullpotw.db')             # Or path to database file if using sqlite3.
+DATABASE_NAME = os.path.join(BASE_DIR, 'nullpotw.db')             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -83,6 +83,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + (
 )
 
 #SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
 ROOT_URLCONF = 'nullpotw.urls'
 
@@ -105,3 +106,9 @@ INSTALLED_APPS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+# read settings_local.py
+try:
+    from settings_local import *
+except:
+    pass

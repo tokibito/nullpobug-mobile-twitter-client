@@ -8,3 +8,4 @@ syntax: regexp
 ^bpmobile$
 ^django_extensions
 ^secret_key$
+^settings_local\.py$

@@ -20,10 +20,12 @@ from core.forms import PostMessageForm
 
 TZ = timezone(settings.TIME_ZONE)
 
+NUM_OF_MESSAGES_BY_PAGE = 30
+
 @login_required
 def index(request):
     account_ids = list(Account.objects.filter(user=request.user).values_list('id', flat=True))
-    messages = Message.objects.filter(followers__id__in=account_ids)[:20]
+    messages = Message.objects.filter(followers__id__in=account_ids)[:NUM_OF_MESSAGES_BY_PAGE]
     return direct_to_template(request, 'core/index.html', extra_context={
         'message_list': messages,
         'form': PostMessageForm(),
