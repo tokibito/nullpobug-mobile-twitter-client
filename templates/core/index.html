@@ -4,12 +4,14 @@
 
 {% block main %}
 <form action="{% mobileurl core_post_message %}" method="post">
+<div style="font-size:small">
 {{ form.message }}
 <input type="submit" value="送信" />
+</div>
 </form>
 <div>
 {% for message in message_list %}
-<div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %}">
+<div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %};font-size:small">
 {{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span> <a href="{% mobileurl core_retweet_message message.message_id %}">RT</a>
 </div>
 {% endfor %}
