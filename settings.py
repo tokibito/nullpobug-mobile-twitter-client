@@ -74,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'bpmobile.middleware.BPMobileMiddleware',
+    'bpmobile.middleware.BPMobileSessionMiddleware',
     'bpmobile.middleware.BPMobileConvertResponseMiddleware',
 #    'bpmobile.middleware.BPMobileDenyBogusIP',
 )
