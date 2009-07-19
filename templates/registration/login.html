@@ -6,9 +6,9 @@
 <form action="{% mobileurl auth_login %}" method="post">
 <div>
 ユーザ名:<br />
-{{ form.username }}<br />
+{% mobile_input_format form.username alphabet %}<br />
 パスワード:<br />
-{{ form.password }}<br />
+{% mobile_input_format form.password alphabet %}<br />
 <input type="submit" value="ログイン" />
 </div>
 </form>
