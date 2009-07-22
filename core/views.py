@@ -63,7 +63,7 @@ def retweet_message(request, message_id):
     """
     message = get_object_or_404(Message, message_id=message_id)
     rt_content = 'RT @%s: %s' %  (message.username, message.content)
-    form = PostMessageForm(initial={'message': rt_content, 'reply_id': message.message_id})
+    form = PostMessageForm(initial={'message': rt_content})
     return direct_to_template(request, 'core/retweet.html', extra_context={
         'message': message,
         'form': form,
