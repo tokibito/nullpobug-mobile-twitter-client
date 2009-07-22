@@ -42,6 +42,7 @@ class MessageManager(models.Manager):
         except IntegrityError:
             message = Message.objects.get(message_id=str(timeline.id))
         message.followers.add(account)
+        return message
         
 
 class Message(models.Model):

@@ -40,8 +40,16 @@ def post_message(request):
         accounts = Account.objects.filter(user=request.user)[:1]
         if accounts:
             reply_id = form.cleaned_data.get('reply_id', None) or None
-            Message.objects.post_message(accounts[0], form.cleaned_data['message'], reply_id)
+            message = Message.objects.post_message(accounts[0], form.cleaned_data['message'], reply_id)
+            return HttpResponseRedirect(reverse('core_post_complete', args=[message.message_id]))
     return HttpResponseRedirect(reverse('site_index'))
+
+@login_required
+def post_complete(request, message_id):
+    message = get_object_or_404(Message, message_id=message_id)
+    return direct_to_template(request, 'core/post_complete.html', extra_context={
+        'message': message,
+    })
 
 @login_required
 def reply_message(request, message_id):
