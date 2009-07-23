@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% load mobile %}
+
+{% block header %}
+<div>
+投稿完了
+</div>
+{% endblock %}
+
+{% block main %}
+<div style="background-color:#{% cycle "DDFFDD" "FFFFFF" %};font-size:small">
+{{ message.username }}:{{ message.content }} <span style="color:#CC7777">{{ message.ctime|time:"H:i" }}</span>{% if message.is_protected %} {% emoji "LOCK" %}{% endif %}
+</div>
+{% endblock %}
